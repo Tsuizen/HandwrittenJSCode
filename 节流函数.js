@@ -1,14 +1,16 @@
 function throttle(fn, delay) {
   let valid = true;
-
-  return function(...args) {
+  let timer = null;
+  return function (...args) {
     if (!valid) {
       return;
     }
 
     valid = false;
 
-    setTimeout(() => {
+    clearTimeout(timer);
+
+    timer = setTimeout(() => {
       fn.apply(this, args);
       valid = true;
     }, delay)
