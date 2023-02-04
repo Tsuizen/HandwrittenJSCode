@@ -47,3 +47,8 @@ let obj2 = deepClone(obj1);
 obj1.a.b.c = 2;
 
 console.log(obj2)
+
+// chrome98以后支持的新方法，不支持拷贝function
+let obj3 = structuredClone(obj1);
+
+console.log(obj3)
