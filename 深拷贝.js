@@ -1,34 +1,29 @@
 // 深拷贝的实现
-function deepClone(obj) {
-  if (!obj || typeof obj !== 'object') {
-    return {};
-  }
+function deepClone(origin) {
+  const map = new WeakMap(); // 解决循环引用
 
-  const map = new WeakMap(); // 解决循环引用问题
-  map.set(obj, true);
+  const clone = (obj) => {
+    if (typeof obj !== 'object') {
+      return obj;
+    }
 
-  function copy(obj) {
+    if (map.has(obj)) {
+      return map.get(obj);
+    }
+
     let newObj = Array.isArray(obj) ? [] : {};
+
+    map.set(obj, newObj);
 
     Object.keys(obj).forEach(key => {
       if (obj.hasOwnProperty(key)) {
-        if (map.has(obj[key])) {
-          console.log('循环引用')
-          newObj[key] = null;
-        } else {
-          if (typeof obj[key] === 'object') {
-            newObj[key] = copy(obj[key]);
-            map.set(obj[key], true);
-          }else {
-            newObj[key] = obj[key];
-          }
-        }
+        newObj[key] = clone(obj[key]);
       }
     })
 
     return newObj;
   }
-  return copy(obj);
+  return clone(origin);
 }
 
 let obj1 = {
@@ -40,13 +35,10 @@ let obj1 = {
 }
 
 // 循环引用
-// obj1.a.b.c = obj1;
+obj1.a = obj1;
 
 let obj2 = deepClone(obj1);
-
-obj1.a.b.c = 2;
-
-console.log(obj2)
+console.log(obj2);
 
 // chrome98以后支持的新方法，不支持拷贝function
 let obj3 = structuredClone(obj1);
