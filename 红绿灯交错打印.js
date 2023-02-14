@@ -40,4 +40,3 @@ const step = async () => {
 }
 
 step()
-

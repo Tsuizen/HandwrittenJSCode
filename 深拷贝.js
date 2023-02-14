@@ -16,9 +16,7 @@ function deepClone(origin) {
     map.set(obj, newObj);
 
     Object.keys(obj).forEach(key => {
-      if (obj.hasOwnProperty(key)) {
         newObj[key] = clone(obj[key]);
-      }
     })
 
     return newObj;
