@@ -1,6 +1,24 @@
 let arr = [1, [2, [3, 4]]];
 
+function _flat (arr, depth) {
+  if (!Array.isArray(arr) || depth === 0) {
+    return arr;
+  }
+
+  return arr.reduce((prev, cur) => {
+    if (Array.isArray(cur)) {
+      return prev.concat(_flat(cur, depth - 1));
+    } else {
+      return prev.concat(cur);
+    }
+  }, [])
+}
+
 function flatten(arr, deep) {
+  if (!Array.isArray(arr) || !deep) {
+    return arr;
+  }
+
   while (arr.some(item => Array.isArray(item)) && deep) {
     arr = [].concat(...arr);
     deep--;
