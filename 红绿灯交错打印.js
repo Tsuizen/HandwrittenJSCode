@@ -32,11 +32,11 @@ const task = (timer, light) =>
 // }
 
 const step = async () => {
-  await task(1000, 'red');
-  await task(1000, 'green');
-  await task(1000, 'yellow');
-
-  step();
+  while (true) {
+    await task(1000, 'red');
+    await task(1000, 'green');
+    await task(1000, 'yellow');
+  }
 }
 
 step()
