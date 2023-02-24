@@ -1,5 +1,5 @@
 // 转换前：
-source = [{
+const source = [{
   id: 1,
   pid: 0,
   name: 'body'
@@ -29,7 +29,7 @@ source = [{
 //   }
 // }]
 
-function jsonToTree(data) {
+function listToTree(data) {
   const result = [];
 
   if (!Array.isArray(data)) {
@@ -54,4 +54,23 @@ function jsonToTree(data) {
   return result;
 }
 
-console.log(jsonToTree(source))
+function treeToList(data) {
+  const result = [];
+  function convert(list) {
+    list.forEach(item => {
+      result.push(item);
+      if (item['children']) {
+        convert(item['children']);
+        delete item['children'];
+      }
+    })
+  }
+
+  convert(data);
+  return result;
+}
+
+const tree = listToTree(source);
+const list = treeToList(JSON.parse(JSON.stringify(tree)));
+console.log(tree);
+console.log(list);
