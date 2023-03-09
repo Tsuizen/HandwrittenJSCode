@@ -10,7 +10,7 @@ function promiseAll(promises) {
         resultCount++;
         resultValue.push(value);
         if (resultCount === promises.length) {
-          return resolve(resultValue);
+          resolve(resultValue);
         }
       }, err => {
         reject(err);
