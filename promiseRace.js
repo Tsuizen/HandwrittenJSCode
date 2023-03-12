@@ -1,4 +1,4 @@
-function promiseRace (promises) {
+function promiseRace(promises) {
   if (!Array.isArray(promises)) {
     throw new Error('TypeError');
   }
@@ -12,21 +12,23 @@ function promiseRace (promises) {
 // test
 let p1 = new Promise(function (resolve, reject) {
   setTimeout(function () {
-    resolve(1)
+    resolve(1);
   }, 1000)
 })
 
 let p2 = new Promise(function (resolve, reject) {
   setTimeout(function () {
-    resolve(2)
+    resolve(2);
   }, 2000)
 })
 let p3 = new Promise(function (resolve, reject) {
   setTimeout(function () {
-    resolve(3)
+    resolve(3);
   }, 3000)
 })
 
 promiseRace([p3, p1, p2]).then(res => {
-  console.log(res) // [3, 1, 2]
+  console.log(res); // [3, 1, 2]
+}).catch(err => {
+  console.log(err);
 })
