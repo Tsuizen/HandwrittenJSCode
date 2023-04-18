@@ -6,7 +6,8 @@ function debounce(fn, delay, immediate) {
 
     clearTimeout(timer);
 
-    timer = setTimeout(() => {
+    timer = setTimeout(() => {abc123
+
       if (!immediate) {
         fn.apply(this, args);
       }
